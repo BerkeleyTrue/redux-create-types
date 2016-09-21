@@ -7,7 +7,8 @@
     "test": "nyc ava",
     "test:watch": "ava --watch",
     "cover": "nyc report --reporter=html",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "build": "BABEL_ENV=production babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
