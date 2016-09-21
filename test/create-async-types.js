@@ -71,13 +71,13 @@ test('should use config start', t => {
   config.start = 'START';
   const type = 'foo';
   const expected = {
-    start: 'foo.START',
+    START: 'foo.START',
     next: 'foo.next',
     error: 'foo.error',
     complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
-  t.is(expected.start, actual.start);
+  t.is(expected.START, actual.START);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
   t.is(expected.complete, actual.complete);
@@ -89,13 +89,13 @@ test('should use config next', t => {
   const type = 'foo';
   const expected = {
     start: 'foo.start',
-    next: 'foo.NEXT',
+    NEXT: 'foo.NEXT',
     error: 'foo.error',
     complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
-  t.is(expected.next, actual.next);
+  t.is(expected.NEXT, actual.NEXT);
   t.is(expected.error, actual.error);
   t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
@@ -107,50 +107,30 @@ test('should use config error', t => {
   const expected = {
     start: 'foo.start',
     next: 'foo.next',
-    error: 'foo.ERROR',
+    ERROR: 'foo.ERROR',
     complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
-  t.is(expected.error, actual.error);
+  t.is(expected.ERROR, actual.ERROR);
   t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
 test('should use config complete', t => {
-  config.complete = 'complete';
+  config.complete = 'COMPLETE';
   const type = 'foo';
   const expected = {
     start: 'foo.start',
     next: 'foo.next',
     error: 'foo.error',
-    complete: 'foo.complete'
+    COMPLETE: 'foo.COMPLETE'
   };
   const actual = createAsyncTypes(type);
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.complete, actual.complete);
-  t.is(type, '' + actual);
-});
-
-test('should update keys', t => {
-  config.shouldChangeAsyncKeys = true;
-  config.start = 'START';
-  config.next = 'NEXT';
-  config.complete = 'COMPLETE';
-  config.error = 'ERROR';
-  const expected = {
-    START: 'foo.START',
-    NEXT: 'foo.NEXT',
-    ERROR: 'foo.ERROR',
-    COMPLETE: 'foo.COMPLETE'
-  };
-  const actual = createAsyncTypes('foo');
-  t.is(expected.START, actual.START);
-  t.is(expected.NEXT, actual.NEXT);
-  t.is(expected.ERROR, actual.ERROR);
   t.is(expected.COMPLETE, actual.COMPLETE);
-  t.is('foo', '' + actual);
+  t.is(type, '' + actual);
 });
