@@ -60,7 +60,7 @@ test('should add async type keys to object', t => {
       start: 'app.bar.start',
       next: 'app.bar.next',
       error: 'app.bar.error',
-      completed: 'app.bar.completed'
+      complete: 'app.bar.complete'
     }
   };
   const actual = createTypes(
@@ -74,7 +74,7 @@ test('should add async type keys to object', t => {
   t.is(expected.bar.start, actual.bar.start);
   t.is(expected.bar.next, actual.bar.next);
   t.is(expected.bar.error, actual.bar.error);
-  t.is(expected.bar.completed, actual.bar.completed);
+  t.is(expected.bar.complete, actual.bar.complete);
   t.is('app.bar', '' + actual.bar);
 });
 
@@ -97,3 +97,31 @@ test('should ignore non-strings in async types objects', t => {
   t.is('app.bar', '' + actual.bar);
   t.not(!!actual.bar.start);
 });
+
+test('should respect async keys', t => {
+  config.shouldChangeAsyncKeys = true;
+  config.start = 'START';
+  const expected = {
+    foo: 'app.foo',
+    bar: {
+      START: 'app.bar.START',
+      next: 'app.bar.next',
+      error: 'app.bar.error',
+      complete: 'app.bar.complete'
+    }
+  };
+  const actual = createTypes(
+    [
+      'foo',
+      createAsyncTypes('bar')
+    ],
+    'app'
+  );
+  t.is(expected.foo, actual.foo);
+  t.is(expected.bar.START, actual.bar.START);
+  t.is(expected.bar.next, actual.bar.next);
+  t.is(expected.bar.error, actual.bar.error);
+  t.is(expected.bar.complete, actual.bar.complete);
+  t.is('app.bar', '' + actual.bar);
+});
+

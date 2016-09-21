@@ -5,7 +5,8 @@ export const config = {
   next: 'next',
   start: 'start',
   error: 'error',
-  completed: 'completed'
+  complete: 'complete',
+  shouldChangeAsyncKeys: false
 };
 
 export function createTypes(types, ns, delimiter = config.delimiter) {
@@ -57,11 +58,22 @@ export function createAsyncTypes(type, delimiter = config.delimiter) {
     'createAsyncTypes expected a string for delimiter, but got %s',
     delimiter
   );
+  let start = 'start';
+  let next = 'next';
+  let error = 'error';
+  let complete = 'complete';
+  const updateKeys = config.shouldChangeAsyncKeys;
+  if (updateKeys) {
+    start = config.start;
+    next = config.next;
+    complete = config.complete;
+    error = config.error;
+  }
   return {
-    start: type + delimiter + config.start,
-    next: type + delimiter + config.next,
-    error: type + delimiter + config.error,
-    completed: type + delimiter + config.completed,
+    [ start ]: type + delimiter + config.start,
+    [ next ]: type + delimiter + config.next,
+    [ error ]: type + delimiter + config.error,
+    [ complete ]: type + delimiter + config.complete,
     toString: () => type
   };
 }

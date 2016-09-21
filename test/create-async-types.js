@@ -24,13 +24,13 @@ test('should return default object with type', t => {
     start: 'foo.start',
     next: 'foo.next',
     error: 'foo.error',
-    completed: 'foo.completed'
+    complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
@@ -40,13 +40,13 @@ test('should respect delimiter arg', t => {
     start: 'foo_start',
     next: 'foo_next',
     error: 'foo_error',
-    completed: 'foo_completed'
+    complete: 'foo_complete'
   };
   const actual = createAsyncTypes('foo', '_');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
@@ -57,13 +57,13 @@ test('should use config delimiter', t => {
     start: 'foo_start',
     next: 'foo_next',
     error: 'foo_error',
-    completed: 'foo_completed'
+    complete: 'foo_complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
@@ -74,13 +74,13 @@ test('should use config start', t => {
     start: 'foo.START',
     next: 'foo.next',
     error: 'foo.error',
-    completed: 'foo.completed'
+    complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
@@ -91,13 +91,13 @@ test('should use config next', t => {
     start: 'foo.start',
     next: 'foo.NEXT',
     error: 'foo.error',
-    completed: 'foo.completed'
+    complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
@@ -108,29 +108,49 @@ test('should use config error', t => {
     start: 'foo.start',
     next: 'foo.next',
     error: 'foo.ERROR',
-    completed: 'foo.completed'
+    complete: 'foo.complete'
   };
   const actual = createAsyncTypes('foo');
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
 });
 
-test('should use config completed', t => {
-  config.completed = 'COMPLETED';
+test('should use config complete', t => {
+  config.complete = 'complete';
   const type = 'foo';
   const expected = {
     start: 'foo.start',
     next: 'foo.next',
     error: 'foo.error',
-    completed: 'foo.COMPLETED'
+    complete: 'foo.complete'
   };
   const actual = createAsyncTypes(type);
   t.is(expected.start, actual.start);
   t.is(expected.next, actual.next);
   t.is(expected.error, actual.error);
-  t.is(expected.completed, actual.completed);
+  t.is(expected.complete, actual.complete);
   t.is(type, '' + actual);
+});
+
+test('should update keys', t => {
+  config.shouldChangeAsyncKeys = true;
+  config.start = 'START';
+  config.next = 'NEXT';
+  config.complete = 'COMPLETE';
+  config.error = 'ERROR';
+  const expected = {
+    START: 'foo.START',
+    NEXT: 'foo.NEXT',
+    ERROR: 'foo.ERROR',
+    COMPLETE: 'foo.COMPLETE'
+  };
+  const actual = createAsyncTypes('foo');
+  t.is(expected.START, actual.START);
+  t.is(expected.NEXT, actual.NEXT);
+  t.is(expected.ERROR, actual.ERROR);
+  t.is(expected.COMPLETE, actual.COMPLETE);
+  t.is('foo', '' + actual);
 });
