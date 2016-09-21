@@ -20,7 +20,7 @@ export function createTypes(types, ns, delimiter = config.delimiter) {
     delimiter
   );
   invariant(
-    delimiter && typeof delimiter === 'string',
+    typeof delimiter === 'string',
     'createAsyncTypes expected a string for delimiter, but got %s',
     delimiter
   );
@@ -29,7 +29,7 @@ export function createTypes(types, ns, delimiter = config.delimiter) {
       types[type] = ns + delimiter + type;
     } else if (
       type &&
-      typeof type === 'object' &&
+      type[config.start] &&
       typeof type.toString === 'function'
     ) {
       types[type.toString()] = Object.keys(type).reduce((typeObj, key) => {
@@ -53,7 +53,7 @@ export function createAsyncTypes(type, delimiter = config.delimiter) {
     type
   );
   invariant(
-    delimiter && typeof delimiter === 'string',
+    typeof delimiter === 'string',
     'createAsyncTypes expected a string for delimiter, but got %s',
     delimiter
   );
