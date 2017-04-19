@@ -1,5 +1,7 @@
 # Redux Create Types
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/BerkeleyTrue/redux-create-types.svg)](https://greenkeeper.io/)
+
 A better way to create types.
 
 
