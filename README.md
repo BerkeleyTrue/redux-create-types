@@ -14,7 +14,7 @@ npm install --save redux-create-types
 ## Usage
 
 ```jsx
-import { createTypes } from 'redux-create-types';
+import { createTypes, createAsyncTypes } from 'redux-create-types';
 
 // we namespace all our types
 // you no longer have to worry about action types clashing
