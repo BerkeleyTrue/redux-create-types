@@ -41,7 +41,7 @@
     "coveralls": "^2.11.14",
     "eslint": "^3.5.0",
     "eslint-plugin-import": "^2.0.1",
-    "nyc": "^10.0.0"
+    "nyc": "^11.0.1"
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
